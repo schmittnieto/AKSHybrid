@@ -23,7 +23,7 @@ In order to deploy AKS on Azure Stack HCI 23H2, a network needs to be configured
 
 The network configuration is done based on the following article [Create networks for AKS](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-networks/).
 
-For this purpose, the script [AKSNetworkConfig.ps1](Script/AKSNetworkConfig.ps1) is used, which will be used with Snippet 2 on the Host and with Snippet 3 from any administrative machine (not from the cluster).
+For this purpose, the script [AKSNetworkConfigCreate.ps1](Script/AKSNetworkConfigCreate.ps1) is used for AKS Network Creation on the Cluster Host and the script [AKSNetworkConfigConnect.ps1](Script/AKSNetworkConfigConnect.ps1) is used for Network Connection over Az CLI on a Administrative VM (shouldn't run on the Cluster Host).
 
 ## Create AKS Using Azure Portal
 Following the [MSLearn](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-create-clusters-portal) article, the AKS can be easily provisioned from the portal: 
