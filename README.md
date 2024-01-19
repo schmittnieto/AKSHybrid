@@ -6,21 +6,28 @@ The scripts make use of functions and derivations of functions, which have been 
 The authorship of these functions will be exposed in these functions.
  - Get-Option
     - Authorship 
-        - @bfrankMS 
-        - https://github.com/bfrankMS/AzStackHCI/blob/main/AKS/AKS%2BARB.ps1
+        - [@bfrankMS](https://github.com/bfrankMS)
+        - [From Script](https://github.com/bfrankMS/AzStackHCI/blob/main/AKS/AKS%2BARB.ps1)
     - Function to provide menu to select result
     - Usage Example
-        - "$vswitchname = Get-Option "Get-VMSwitch -SwitchType External" "Name""
+        - `$vswitchname = Get-Option "Get-VMSwitch -SwitchType External" "Name"`
  - Get-Option-Az
     - Authorship
         - @Schmittnieto
     - Modification from Get-Option for AZ CLI
     - Usage Example
-        - "$customlocationID = Get-Option-Az $(az customlocation list --output json) "id""
+        - `$customlocationID = Get-Option-Az $(az customlocation list --output json) "id"`
 
 ## Network Configuration
 In order to deploy AKS on Azure Stack HCI 23H2, a network needs to be configured using "New-ArcHciVirtualNetwork" and registered using "az akshybrid vnet create".
 
+The network configuration is done based on the following article [Create networks for AKS](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-networks/).
+
+For this purpose, the script [AKSNetworkConfig.ps1](Scripts/AKSNetworkConfig.ps1) is used, which will be used with Snippet 2 on the Host and with Snippet 3 from any administrative machine (not from the cluster).
+
+## Create AKS Using Azure Portal
+Following the [MSLearn](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-create-clusters-portal) article, the AKS can be easily provisioned from the portal: 
+![AKS on Azure Portal](https://learn.microsoft.com/en-us/azure/aks/hybrid/media/aks-create-clusters-portal/cluster-portal.png) 
 
 # Disclaimer 
 - This is not official Microsoft documentation or software.
