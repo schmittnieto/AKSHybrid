@@ -10,13 +10,13 @@ The authorship of these functions will be exposed in these functions.
         - https://github.com/bfrankMS/AzStackHCI/blob/main/AKS/AKS%2BARB.ps1
     - Function to provide menu to select result
     - Usage Example
-        - $vswitchname = Get-Option "Get-VMSwitch -SwitchType External" "Name"
+        - "$vswitchname = Get-Option "Get-VMSwitch -SwitchType External" "Name""
  - Get-Option-Az
     - Authorship
         - @Schmittnieto
     - Modification from Get-Option for AZ CLI
     - Usage Example
-        - $customlocationID = Get-Option-Az $(az customlocation list --output json) "id"
+        - "$customlocationID = Get-Option-Az $(az customlocation list --output json) "id""
 
 ## Network Configuration
 In order to deploy AKS on Azure Stack HCI 23H2, a network needs to be configured using "New-ArcHciVirtualNetwork" and registered using "az akshybrid vnet create".
