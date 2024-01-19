@@ -31,12 +31,12 @@
 
 #region Snippet 2: Connect the Network to Azure (it need to run externaly, not on the cluster)
 az login --use-device-code
-# take the same name ($clustervnetname) as you used on AKSNetworkConfigCreate 
-$clustervnetname = "testaksvnet"
+$clustervnetname = "testaksvnet" # take the same name ($clustervnetname) as you used on AKSNetworkConfigCreate 
 Write-Host "Select a resource Group"
 $resource_group = Get-Option-Az $(az group list --output json) "name"
+az extension add --name customlocation --allow-preview true --only-show-errors
 Write-Host "Select a customlocation"
 $customlocationID = Get-Option-Az $(az customlocation list --output json) "id"
-az extension add --name akshybrid --allow-preview true
+az extension add --name akshybrid --allow-preview true --only-show-errors
 az akshybrid vnet create -n $clustervnetname -g $resource_group --custom-location $customlocationID --moc-vnet-name $clustervnetname
 #endregion
