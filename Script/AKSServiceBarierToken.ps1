@@ -87,6 +87,15 @@ $resource_group = Get-Option-Az $(az group list --output json) "name"
 Write-Host "Select the AKS Cluster" -ForegroundColor Green
 $AKSCluster = Get-Option-Az $(az resource list -g $resource_group --resource-type "Microsoft.Kubernetes/connectedClusters" --output json) "name"
 Write-Host "Generating Kubectl" -ForegroundColor Green
+$kubecfgfolder = "$env:USERPROFILE\.kube"
+if (-not (Test-Path $kubecfgfolder -ErrorAction Ignore)){
+    New-Item -Path $kubecfgfolder -ItemType Directory
+}
+$kubecfgdata = "$kubecfgfolder\aks-arc-kube-config"
+if (Test-Path $kubecfgdata) {
+    Remove-Item $kubecfgdata
+}
+
 az connectedk8s proxy -n $AKSCluster -g $resource_group --file .\aks-arc-kube-config
 #endregion
 
