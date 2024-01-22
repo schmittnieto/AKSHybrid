@@ -29,6 +29,11 @@ For this purpose, the script [AKSNetworkConfigCreate.ps1](Script/AKSNetworkConfi
 Following the [MSLearn](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-create-clusters-portal) article, the AKS can be easily provisioned from the portal: 
 ![AKS on Azure Portal](https://learn.microsoft.com/en-us/azure/aks/hybrid/media/aks-create-clusters-portal/cluster-portal.png) 
 
+## Create Service Barier Token for Management purposes 
+In order to create a Service Barier token to manage kubernetes resources from the portal, we proceed to install it following the [MSLearn](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/cluster-connect?tabs=azure-cli%2Cagent-version#service-account-token-authentication-option) article.
+To do this we will use the [AKSServiceBarierToken.ps1](Script/AKSServiceBarierToken.ps1), which will create a connection via ARC to the cluster and then using Kubectl in a new powershell window (Snippet 3.1) we will proceed to the automated configuration of the service barier token.
+
+
 # Disclaimer 
 - This is not official Microsoft documentation or software.
 - This sample is not supported under any Microsoft standard support program or service.
