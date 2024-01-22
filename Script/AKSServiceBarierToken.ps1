@@ -97,7 +97,6 @@ kubectl get node -A --kubeconfig .\aks-arc-kube-config
 
 $AdminUser = Read-Host -Prompt 'Input the user name for Service Barier Token'
 $YamlSecret = "$AdminUser-user-secret.yaml"
-Get-AksHciCredential -Name $AKSCluster
 kubectl create serviceaccount $AdminUser -n default --kubeconfig .\aks-arc-kube-config
 kubectl create clusterrolebinding "$Adminuser-binding" --clusterrole cluster-admin --serviceaccount default:$AdminUser --kubeconfig .\aks-arc-kube-config
 New-Item $YamlSecret
