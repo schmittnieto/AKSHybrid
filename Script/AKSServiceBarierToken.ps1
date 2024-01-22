@@ -78,7 +78,7 @@ exit
 #endregion
 #region Snippet 3: Creating Service Barier Token
 #region 3.1: Starting Proxy for AKS
-#az login
+az login
 Write-Host "Select the AKS Subscription" -ForegroundColor Green
 $AZsubscription = Get-Option-Az $(az account list --output json) "name"
 az account set --name $AZsubscription
