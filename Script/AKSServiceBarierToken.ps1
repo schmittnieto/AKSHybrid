@@ -77,7 +77,7 @@ exit
 #>
 #endregion
 #region Snippet 3: Creating Service Barier Token
-#region 3.1: Starting Proxy for AKS
+#region 3.1: Getting AKS Credentials
 az login --use-device-code
 Write-Host "Select the AKS Subscription" -ForegroundColor Green
 $AZsubscription = Get-Option-Az $(az account list --output json) "name"
@@ -96,10 +96,10 @@ if (Test-Path $kubecfgdata) {
     Remove-Item $kubecfgdata
 }
 cd $kubecfgfolder
-az connectedk8s proxy -n $AKSCluster -g $resource_group --file .\aks-arc-kube-config
+az akshybrid get-credentials --name $AKSCluster --resource-group $resource_group --file aks-arc-kube-config --admin
 #endregion
 
-#region 3.1: Generating the service barier token (in New Powershell tab)
+#region 3.1: Generating the service barier token 
 cd $env:USERPROFILE"\.kube"
 Write-Host "Testing aks cluster connection" -ForegroundColor Green
 kubectl get node -A --kubeconfig .\aks-arc-kube-config
