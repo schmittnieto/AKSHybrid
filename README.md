@@ -23,7 +23,7 @@ In order to deploy AKS on Azure Stack HCI 23H2, a network needs to be configured
 
 The network configuration is done based on the following article [Create networks for AKS](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-networks/).
 
-For this purpose, the script [AKSNetworkConfigCreate.ps1](Script/AKSNetworkConfigCreate.ps1) is used for AKS Network Creation on the Cluster Host and the script [AKSNetworkConfigConnect.ps1](Script/AKSNetworkConfigConnect.ps1) is used for Network Connection over Az CLI on a Administrative VM (shouldn't run on the Cluster Host).
+For this purpose, the script [AKSNetworkConfigCreate.ps1](Script/01_AKSNetworkConfigCreate.ps1) is used for AKS Network Creation on the Cluster Host and the script [AKSNetworkConfigConnect.ps1](Script/02_AKSNetworkConfigConnect.ps1) is used for Network Connection over Az CLI on a Administrative VM (shouldn't run on the Cluster Host).
 
 ## Create AKS Using Azure Portal
 Following the [MSLearn](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-create-clusters-portal) article, the AKS can be easily provisioned from the portal: 
@@ -31,8 +31,12 @@ Following the [MSLearn](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-c
 
 ## Create Service Barier Token for Management purposes 
 In order to create a Service Barier token to manage kubernetes resources from the portal, we proceed to install it following the [MSLearn](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/cluster-connect?tabs=azure-cli%2Cagent-version#service-account-token-authentication-option) article.
-To do this we will use the [AKSServiceBarierToken.ps1](Script/AKSServiceBarierToken.ps1), which will create a connection to the cluster and then using Kubectl (Snippet 3.1) we will proceed to the automated configuration of the service barier token.
+To do this we will use the [AKSServiceBarierToken.ps1](Script/03_AKSServiceBarierToken.ps1), which will create a connection to the cluster and then using Kubectl (Snippet 3.1) we will proceed to the automated configuration of the service barier token.
 The prerequisite for this configuration is local access to the cluster, either via a VM in the cluster's network or via VPN.
+
+## Create SQL Managed Instance
+https://learn.microsoft.com/en-us/azure/azure-arc/data/create-data-controller-direct-azure-portal
+I am currently trying to create a script to automate the process, but compared to Deployment from the portal, it doesn't make sense to deploy via script. 
 
 
 # Disclaimer 
