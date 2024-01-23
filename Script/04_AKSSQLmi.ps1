@@ -50,7 +50,7 @@ az extension update --name customlocation --allow-preview --only-show-errors
 #>
 
 #endregion
-#region Snippet 3: Deploying SQL Managed Instance
+#region Snippet 3: Deploying ARC Data Connection
 az login --use-device-code
 Write-Host "Select the AKS Subscription" -ForegroundColor Green
 $AZsubscription = Get-Option-Az $(az account list --output json) "name"
@@ -120,4 +120,13 @@ $K8Namespace = "default"
 Write-Host "K8Namespace: $K8Namespace"
 az arcdata dc create --profile-name $arcdataprofilname  --k8s-namespace $K8Namespace --use-k8s --name arc --subscription $AZsubscriptionID --resource-group $resource_group --location $K8Location --connectivity-mode indirect
 #endregion
+#endregion
+
+#region 4: Create SQLmi
+Write-Host "Select a customlocation"
+$CustomLocation = Get-Option-Az $(az customlocation list --output json) "Name"
+$sqlminame = Read-Host "Give a sqlminame"
+$AZsubscriptionID = az account show --query "id" -o tsv
+
+az sql mi-arc create --name $sqlminame --resource-group $resource_group --subscription $AZsubscriptionID  --custom-location $CustomLocation #--storage-class-backups <RWX capable storageclass>
 #endregion
