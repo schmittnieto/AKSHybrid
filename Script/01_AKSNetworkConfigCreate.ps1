@@ -3,7 +3,8 @@ function Get-Option ($cmd, $filterproperty) {
     $items = @("")
     $selection = $null
     $filteredItems = @()
-    Invoke-Expression -Command $cmd | Sort-Object $filterproperty | ForEach-Object -Begin { $i = 0 } -Process {
+    $i = 0
+    Invoke-Expression -Command $cmd | Sort-Object $filterproperty | ForEach-Object -Process {
       $items += "{0}. {1}" -f $i, $_.$filterproperty
       $i++
     } 
@@ -50,14 +51,14 @@ function Get-Option ($cmd, $filterproperty) {
         }
       }
       $option = & $giveMeNumber
-      while ($option -eq $null -or $option -lt 1 -or $option -gt 2) {
+      while ($null -eq $option -or $option -lt 1 -or $option -gt 2) {
           Write-Host "Invalid option. Please choose a valid option (1 or 2).                         " 
-          sleep 3
+          Start-Sleep 3
           $option = & $giveMeNumber
       }
        switch ($option) {
         1 {$vlanId = Read-Host -Prompt 'he identification number of the VLAN in use. Every virtual machine is tagged with that VLAN ID.(Example: 3015)'}
-        2 {sleep 1}
+        2 {Start-Sleep 1}
         }
   
   New-ArcHciVirtualNetwork -name $clustervnetname -vswitchname $vswitchname -ipaddressprefix $ipaddressprefix -gateway $gateway -dnsservers $dnsServers -vippoolstart $vipPoolStart -vippoolend $vipPoolEnd -k8snodeippoolstart $vmPoolStart -k8snodeippoolend $vmPoolEnd -vlanID $vlanid

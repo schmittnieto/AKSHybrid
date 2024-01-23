@@ -8,7 +8,8 @@ function Get-Option-Az ($azcmd, $filterproperty) {
     # Execute az cli command and convert JSON output to PowerShell objects.
     $result = $azcmd | ConvertFrom-Json
     # Sorts the objects by the filter property and adds them to the element array
-    $result | Sort-Object $filterproperty | ForEach-Object -Begin { $i = 0 } -Process {
+    $i = 0
+    $result | Sort-Object $filterproperty | ForEach-Object -Process {
       $items += "{0}. {1}" -f $i, $_.$filterproperty
       $i++
     } 
@@ -96,12 +97,12 @@ $kubecfgdata = "$kubecfgfolder\aks-arc-kube-config"
 if (Test-Path $kubecfgdata) {
     Remove-Item $kubecfgdata
 }
-cd $kubecfgfolder
+Set-Location $kubecfgfolder
 az akshybrid get-credentials --name $AKSCluster --resource-group $resource_group --file aks-arc-kube-config --admin
 #endregion
 
 #region 3.1: Generating the service barier token 
-cd $env:USERPROFILE"\.kube"
+Set-Location $env:USERPROFILE"\.kube"
 Write-Host "Testing aks cluster connection" -ForegroundColor Green
 kubectl get node -A --kubeconfig .\aks-arc-kube-config
 
