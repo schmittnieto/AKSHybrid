@@ -78,7 +78,7 @@ exit
 #endregion
 #region Snippet 3: Creating Service Barier Token
 #region 3.1: Starting Proxy for AKS
-az login
+az login --use-device-code
 Write-Host "Select the AKS Subscription" -ForegroundColor Green
 $AZsubscription = Get-Option-Az $(az account list --output json) "name"
 az account set --name $AZsubscription
@@ -95,7 +95,7 @@ $kubecfgdata = "$kubecfgfolder\aks-arc-kube-config"
 if (Test-Path $kubecfgdata) {
     Remove-Item $kubecfgdata
 }
-
+cd $kubecfgfolder
 az connectedk8s proxy -n $AKSCluster -g $resource_group --file .\aks-arc-kube-config
 #endregion
 
