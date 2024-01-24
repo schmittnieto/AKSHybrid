@@ -41,12 +41,12 @@ Write-Host "Installing AzCLI....                                                
 exit
 
 # Install az extension
-az extension add --name arcdata --allow-preview --only-show-errors
-az extension update --name arcdata --allow-preview --only-show-errors
-az extension add --name stack-hci-vm --allow-preview --only-show-errors
-az extension update --name stack-hci-vm --allow-preview --only-show-errors
-az extension add --name customlocation --allow-preview --only-show-errors
-az extension update --name customlocation --allow-preview --only-show-errors
+az extension add --name arcdata --allow-preview true --only-show-errors
+az extension update --name arcdata --allow-preview true --only-show-errors
+az extension add --name stack-hci-vm --allow-preview true --only-show-errors
+az extension update --name stack-hci-vm --allow-preview true --only-show-errors
+az extension add --name customlocation --allow-preview true --only-show-errors
+az extension update --name customlocation --allow-preview true --only-show-errors
 #>
 
 #endregion

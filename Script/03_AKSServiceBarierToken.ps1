@@ -64,8 +64,8 @@ Write-Host "Installing AzCLI....                                                
 exit
 
 # Install az extension
-az extension add --name akshybrid --allow-preview --only-show-errors
-az extension update --name akshybrid --allow-preview --only-show-errors
+az extension add --name akshybrid --allow-preview true --only-show-errors
+az extension update --name akshybrid --allow-preview true --only-show-errors
 
 #>
 
