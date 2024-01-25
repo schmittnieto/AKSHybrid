@@ -101,7 +101,7 @@ Set-Location $kubecfgfolder
 az akshybrid get-credentials --name $AKSCluster --resource-group $resource_group --file aks-arc-kube-config --admin
 #endregion
 
-#region 3.1: Generating the service barier token 
+#region 3.1: Generating the service barier token  
 Set-Location $env:USERPROFILE"\.kube"
 Write-Host "Testing aks cluster connection" -ForegroundColor Green
 kubectl get node -A --kubeconfig .\aks-arc-kube-config

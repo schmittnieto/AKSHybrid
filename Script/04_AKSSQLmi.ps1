@@ -30,7 +30,7 @@ function Get-Option-Az ($azcmd, $filterproperty) {
   }
 #endregion
 #region Snippet 2: Requierements: Az CLI and arcdata extension
-
+ 
 <# Install Az CLI
 Write-Host "Installing AzCLI....                                                           " 
     start-bitstransfer https://aka.ms/installazurecliwindows ".\AzureCLI.msi" -Priority High -RetryInterval 60  -Verbose -SecurityFlags 0,0,0 -TransferPolicy Always #faster

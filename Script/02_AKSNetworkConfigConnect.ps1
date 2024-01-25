@@ -30,7 +30,7 @@ function Get-Option-Az ($azcmd, $filterproperty) {
 }
 #endregion
 
-#region Snippet 2: Connect the Network to Azure (it need to run externaly, not on the cluster)
+#region Snippet 2: Connect the Network to Azure (it need to run externaly, not on the cluster) 
 az login --use-device-code
 $clustervnetname = Read-Host "Enter Cluster Network Name (take the same name as you used on AKSNetworkConfigCreate)" # For Example: "testaksvnet" take the same name ($clustervnetname) as you used on AKSNetworkConfigCreate 
 Write-Host "Select a resource Group"

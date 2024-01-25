@@ -26,7 +26,7 @@ function Get-Option ($cmd, $filterproperty) {
 
 #endregion
 
-#region Snippet 2: Network Configuration on HCI Host   
+#region Snippet 2: Network Configuration on HCI Host
 Write-Host = "Select External Switch for AKS"
 $vswitchname = Get-Option "Get-VMSwitch -SwitchType External" "Name"
 $clustervnetname = Read-Host -Prompt 'Input the name for AKS Cluster VNET (Example: prodaksclust)'
