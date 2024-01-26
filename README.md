@@ -30,7 +30,7 @@ Following the [MSLearn](https://learn.microsoft.com/en-us/azure/aks/hybrid/aks-c
 ![AKS on Azure Portal](https://learn.microsoft.com/en-us/azure/aks/hybrid/media/aks-create-clusters-portal/cluster-portal.png) 
 
 ## Create Service Barier Token for Management purposes 
-In order to create a Service Barier token to manage kubernetes resources from the portal, we proceed to install it following the [MSLearn](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/cluster-connect?tabs=azure-cli%2Cagent-version#service-account-token-authentication-option) article.
+In order to create a Service Barier token to manage kubernetes resources from the portal, we proceed to configure it following the [MSLearn](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/cluster-connect?tabs=azure-cli%2Cagent-version#service-account-token-authentication-option) article.
 To do this we will use the [AKSServiceBarierToken.ps1](Script/03_AKSServiceBarierToken.ps1), which will create a connection to the cluster and then using Kubectl (Snippet 3.1) we will proceed to the automated configuration of the service barier token.
 The prerequisite for this configuration is local access to the cluster, either via a VM in the cluster's network or via VPN.
 
