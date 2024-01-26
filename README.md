@@ -5,15 +5,12 @@ This is a repository that intends to automate and document the installation and 
 The scripts make use of functions and derivations of functions, which have been created or modified simply to facilitate the implementation of the AKS.
 The authorship of these functions will be exposed in these functions.
  - Get-Option
-    - Authorship 
-        - [@bfrankMS](https://github.com/bfrankMS)
+    - SourceCode
         - [From Script](https://github.com/bfrankMS/AzStackHCI/blob/main/AKS/AKS%2BARB.ps1)
     - Function to provide menu to select result
     - Usage Example
         - `$vswitchname = Get-Option "Get-VMSwitch -SwitchType External" "Name"`
  - Get-Option-Az
-    - Authorship
-        - @Schmittnieto
     - Modification from Get-Option for AZ CLI
     - Usage Example
         - `$customlocationID = Get-Option-Az $(az customlocation list --output json) "id"`
