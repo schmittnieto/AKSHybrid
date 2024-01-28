@@ -33,7 +33,9 @@ In this section I will list the advantages over the new deployment and the point
 - The commands used so far (az akshybrid) do not work because they are based on the old "microsoft.hybridcontainerservice/virtualnetworks" networks.
 - In the network section of the AKS it is possible to find IPs of loadbalancers from other AKS that are in other logical networks but in the same network segment. I have yet to test if it is also possible to see them if they are on another network segment.
 - When configuring Azure Arc Data Controller on an AKS with a default nodepool size (A4_v2), I am allowed to install it but the pods throw an error due to lack of RAM. In any article I have been able to see the minimum requirements to make use of the Data Controller. By increasing the RAM, the Data Controller can be provisioned correctly. 
-- I'm experiencing some issues by deleting clusters (it generate phantom resources in Azure)
+- I'm experiencing some issues by deleting clusters (it generate phantom resources in Azure).
+- Currently I have not been able to deploy kubernetes version 1.25.6 and the provisioning status remains at: Failed. This does not affect versions 1.26.6 and 1.27.1.
+- It is not possible to view the IP of the Control Plane from the Portal.
 # Disclaimer 
 - This is not official Microsoft documentation or software.
 - This sample is not supported under any Microsoft standard support program or service.
