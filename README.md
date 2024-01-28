@@ -23,16 +23,16 @@ In this section I will list the advantages over the new deployment and the point
 ## Improvements of this version
 - The AKS can be provisioned after the installation of Azure Stack HCI, entirely from the Azure portal without having to run scripts on it. 
 - AKS makes use of the networks "Azure Stack HCI Logical network" instead of the networks "microsoft.hybridcontainerservice/virtualnetworks" which makes it easier to manage and provision, as the networks "Azure Stack HCI Logical network" show the network range and other characteristics (Gatway, DNS, IP Pools and VLANID).
-- Provisioning does not require a VM for the Loadbalancer as this is done from the Control Plane VM, consolidating functions and resources. 
+- Provisioning AKS does not require a VM for the Loadbalancer as this is done from the Control Plane VM, consolidating functions and resources. 
 - Load balancer management is done from the portal, thus having an overview of the IPs in use and being able to define which IPs are to be used for which purpose.
-- By configuring the AKS network on one of the clusters, the cluster can provision Azure Arc Data controllers (a requirement for SQL Managed Instances). Something that was very tedious in the past is now very easy and convenient. 
+- By configuring the AKS network on one of the clusters, the cluster can provision Azure Arc Data controllers (a requirement for SQL Managed Instances). Something that was very tedious in the past is now very easy and comfortable. 
 ## Points for improvement 
-- When creating a new AKS, the default nodepool is called "namedeldelaks-nodepool1" and does not respect the nomenclature needed to create it (11 characters and no special characters).
-- When implementing the networks (Loadbalancer) in the AKS, a provider (Microsoft.ArcNetworking) is required. It would be good if this could be introduced in the installation (or in the installation guide) of the HCI to prevent project delays.
+- When creating a new AKS, the default nodepool is called "namefromaks-nodepool1" and does not respect the nomenclature needed to create it (11 characters and no special characters).
+- When implementing the networks (Loadbalancer) in the AKS, a azure provider (Microsoft.ArcNetworking) is required. It would be good if this could be introduced in the installation (or in the installation guide) of the HCI to prevent project delays.
 - There is currently little or no documentation on the new provisioning. Or at least I have not been able to find any. 
 - The commands used so far (az akshybrid) do not work because they are based on the old "microsoft.hybridcontainerservice/virtualnetworks" networks.
-- In the network section of the AKS it is possible to find IPs of loadbalancers that are in other logical networks (and other AKS) but in the same network segment. I have yet to test if it is also possible to see them if they are on another network segment.
-- When configuring Azure Arc Data Controller on an AKS with a default nodepool size (A4_v2), I am allowed to install but the pods throw an error due to lack of RAM. In any article I have been able to see the minimum requirements to make use of the Data Controller. By increasing the RAM, the Data Controller can be provisioned correctly. 
+- In the network section of the AKS it is possible to find IPs from other AKS of loadbalancers that are in other logical networks but in the same network segment. I have yet to test if it is also possible to see them if they are on another network segment.
+- When configuring Azure Arc Data Controller on an AKS with a default nodepool size (A4_v2), I am allowed to install it but the pods throw an error due to lack of RAM. In any article I have been able to see the minimum requirements to make use of the Data Controller. By increasing the RAM, the Data Controller can be provisioned correctly. 
 # Disclaimer 
 - This is not official Microsoft documentation or software.
 - This sample is not supported under any Microsoft standard support program or service.
