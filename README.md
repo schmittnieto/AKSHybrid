@@ -31,7 +31,7 @@ In this section I will list the advantages over the new deployment and the point
 - When implementing the networks (Loadbalancer) in the AKS, a azure provider (Microsoft.ArcNetworking) is required. It would be good if this could be introduced in the installation (or in the installation guide) of the HCI to prevent project delays.
 - There is currently little or no documentation on the new provisioning. Or at least I have not been able to find any. 
 - The commands used so far (az akshybrid) do not work because they are based on the old "microsoft.hybridcontainerservice/virtualnetworks" networks.
-- In the network section of the AKS it is possible to find IPs from other AKS of loadbalancers that are in other logical networks but in the same network segment. I have yet to test if it is also possible to see them if they are on another network segment.
+- In the network section of the AKS it is possible to find IPs of loadbalancers from other AKS that are in other logical networks but in the same network segment. I have yet to test if it is also possible to see them if they are on another network segment.
 - When configuring Azure Arc Data Controller on an AKS with a default nodepool size (A4_v2), I am allowed to install it but the pods throw an error due to lack of RAM. In any article I have been able to see the minimum requirements to make use of the Data Controller. By increasing the RAM, the Data Controller can be provisioned correctly. 
 # Disclaimer 
 - This is not official Microsoft documentation or software.
