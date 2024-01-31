@@ -79,8 +79,7 @@ exit
 
 #>
 #endregion
-#region Snippet 3: Creating Service Barier Token
-#region 3.1: Getting AKS Credentials
+#region Snippet 3: Enabling Azure Hybrid User Benefits feature on AKS
 az login --use-device-code
 Write-Host "Select the AKS Subscription" -ForegroundColor Green
 $AZsubscription = Get-Option-Az $(az account list --output json) "name"
@@ -89,40 +88,36 @@ Write-Host "Select the AKS Resource Group" -ForegroundColor Green
 $resource_group = Get-Option-Az $(az group list --output json) "name"
 Write-Host "Select the AKS Cluster" -ForegroundColor Green
 $AKSCluster = Get-Option-Az $(az resource list -g $resource_group --resource-type "Microsoft.Kubernetes/connectedClusters" --output json) "name"
-Write-Host "Generating Kubectl" -ForegroundColor Green
-$kubecfgfolder = "$env:USERPROFILE\.kube"
-if (-not (Test-Path $kubecfgfolder -ErrorAction Ignore)){
-    New-Item -Path $kubecfgfolder -ItemType Directory
-}
-$kubecfgdata = "$kubecfgfolder\aks-arc-kube-config"
-if (Test-Path $kubecfgdata) {
-    Remove-Item $kubecfgdata
-}
-Set-Location $kubecfgfolder
-az aksarc get-credentials --name $AKSCluster --resource-group $resource_group --file aks-arc-kube-config --admin
+Write-Host "Do you want to Disable Azure Hybrid User Benefits feature on AKSCluster: $AKSCluster?" -ForegroundColor Green
+Write-Host "1. Yes                                                            " 
+Write-Host "2. No                                                             " 
+$giveMeNumber = {
+      try {
+        [int]$option = Read-Host
+        return $option
+      }
+      catch {
+        Write-Output "Your input is not a valid number."
+        return $null
+      }
+    }
+    $option = & $giveMeNumber
+    while ($null -eq $option -or $option -lt 1 -or $option -gt 2) {
+        Write-Host "Invalid option. Please choose a valid option (1 or 2).                         " 
+        Start-Sleep 3
+        $option = & $giveMeNumber
+    }
+     switch ($option) {
+      1 {
+        az aksarc update --name $AKSCluster --resource-group $resource_group --enable-ahub
+        Write-Host "Azure Hybrid User Benefits feature was disable on $AKSCluster"
+        Start-Sleep 10
+      }
+      2 { 
+        Write-Host "Azure Hybrid User Benefits feature was not set"
+        Start-Sleep 10
+      }
+      }
 #endregion
 
-#region 3.1: Generating the service barier token  
-Set-Location $env:USERPROFILE"\.kube"
-Write-Host "Testing aks cluster connection" -ForegroundColor Green
-kubectl get node -A --kubeconfig .\aks-arc-kube-config
-
-$AdminUser = Read-Host -Prompt 'Input the user name for Service Barier Token'
-$YamlSecret = "$AdminUser-user-secret.yaml"
-kubectl create serviceaccount $AdminUser -n default --kubeconfig .\aks-arc-kube-config
-kubectl create clusterrolebinding "$Adminuser-binding" --clusterrole cluster-admin --serviceaccount default:$AdminUser --kubeconfig .\aks-arc-kube-config
-New-Item $YamlSecret
-"apiVersion: v1
-kind: Secret
-metadata:
-  name: $AdminUser-secret
-  annotations:
-    kubernetes.io/service-account.name: $AdminUser
-type: kubernetes.io/service-account-token" | Out-File $YamlSecret
-kubectl apply -f $YamlSecret --kubeconfig .\aks-arc-kube-config
-$TOKEN = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((kubectl get secret "$AdminUser-secret" --kubeconfig .\aks-arc-kube-config -o jsonpath='{$.data.token}'))))
-$TOKEN
-$TOKEN | Out-File $AdminUser-Secret-Token.txt
-#endregion
-#endregion
  
