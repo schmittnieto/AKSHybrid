@@ -109,16 +109,9 @@ $giveMeNumber = {
     }
      switch ($option) {
       1 {
-        # Parse the upgrades
-        $upgrades = $(az aksarc get-upgrades --name $AKSCluster --resource-group $resource_group --output json) | ConvertFrom-Json
-        $upgradeVersions = $upgrades.controlPlaneProfile.upgrades.kubernetesVersion
-
-        # Convert the upgrade versions to a JSON string
-        $upgradeVersionsJson = $upgradeVersions | ConvertTo-Json
-
-        # Use the Get-Option-Az function to let the user select an upgrade version
-        Write-Host "Select the AKS Version to Upgrade To" -ForegroundColor Green
-        $aksversion = Get-Option-Az $upgradeVersionsJson "kubernetesVersion"
+        #Select the AKS Version to Upgrade
+        Write-Host "Select the AKS Version to Upgrade"
+        $aksversion = Get-Option-Az $(az aksarc get-upgrades --name $AKSCluster --resource-group $resource_group --query "controlPlaneProfile.upgrades[]" --output json) "kubernetesVersion"
 
         # Now you can use the selected version in your upgrade command
         az aksarc upgrade --name $AKSCluster --resource-group $resource_group --kubernetes-version $aksversion
