@@ -41,5 +41,5 @@ Write-Host "Select a customlocation"
 $customlocationID = Get-Option-Az $(az customlocation list --output json) "id"
 az extension add --name akshybrid --allow-preview true --only-show-errors
 az extension update --name akshybrid --allow-preview true --only-show-errors
-az akshybrid vnet create -n $clustervnetname -g $resource_group --custom-location $customlocationID --moc-vnet-name $clustervnetname
+az aksarc vnet create -n $clustervnetname -g $resource_group --custom-location $customlocationID --moc-vnet-name $clustervnetname
 #endregion
