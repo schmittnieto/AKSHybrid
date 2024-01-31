@@ -88,7 +88,7 @@ Write-Host "Select the AKS Resource Group" -ForegroundColor Green
 $resource_group = Get-Option-Az $(az group list --output json) "name"
 Write-Host "Select the AKS Cluster" -ForegroundColor Green
 $AKSCluster = Get-Option-Az $(az resource list -g $resource_group --resource-type "Microsoft.Kubernetes/connectedClusters" --output json) "name"
-Write-Host "Do you want to Disable Azure Hybrid User Benefits feature on AKSCluster: $AKSCluster?" -ForegroundColor Green
+Write-Host "Do you want to Disable Azure Hybrid User Benefits feature on AKSCluster: $AKSCluster ?" -ForegroundColor Green
 Write-Host "1. Yes                                                            " 
 Write-Host "2. No                                                             " 
 $giveMeNumber = {
@@ -109,13 +109,13 @@ $giveMeNumber = {
     }
      switch ($option) {
       1 {
-        az aksarc update --name $AKSCluster --resource-group $resource_group --enable-ahub
+        az aksarc update --name $AKSCluster --resource-group $resource_group --disable-ahub
         Write-Host "Azure Hybrid User Benefits feature was disable on $AKSCluster"
-        Start-Sleep 10
+        Start-Sleep 1
       }
       2 { 
         Write-Host "Azure Hybrid User Benefits feature was not set"
-        Start-Sleep 10
+        Start-Sleep 1
       }
       }
 #endregion
