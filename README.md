@@ -13,7 +13,15 @@ So far I have only implemented it on static logical networks and not on DHCP net
 
 Upon successful Deployment in all the tests I am performing, I will proceed to document the process in this section. 
 
-## Create Service Barier Token for Management purposes 
+## AKS Management Scripts
+In this section I will collect the different scripts that I have been developing during the preview phase to manage hybrid AKS in Azure Stack HCI 23H2.
+These are mostly based on az cli and the aksarc extension, which is available as [GA](https://learn.microsoft.com/en-us/cli/azure/aksarc?view=azure-cli-latest).
+We currently require these scripts because these functions are not available on the portal. 
+### Update Version from Kubernetes
+In order to update the Kubernetes version we will use the script [AKSGetUpdates.ps1](Script/23H2/AKSGetUpdates.ps1), this script obtains a list of possible updates in the customlocation and then proceeds to update the selected cluster. 
+### Enable or Disable Hybrid User Benefits
+If you have the corresponding licence, you can make use of Hybrid User Benefits, currently I have developed two scripts to activate or deactivate it ( [AKSEnableAzureHybridUserBenefits.ps1](Script/23H2/AKSEnableAzureHybridUserBenefits.ps1) and [AKSDisableAzureHybridUserBenefits.ps1](Script/23H2/AKSDisableAzureHybridUserBenefits.ps1) ), in the future I will try to concentrate this work in a single script. 
+### Create Service Barier Token for Management purposes 
 In order to create a Service Barier token to manage kubernetes resources from the portal, we proceed to configure it following the [MSLearn](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/cluster-connect?tabs=azure-cli%2Cagent-version#service-account-token-authentication-option) article.
 To do this we will use the [AKSServiceBarierToken.ps1](Script/23H2/AKSServiceBarierToken.ps1), which will create a connection to the cluster and then using Kubectl (Snippet 3.1) we will proceed to the automated configuration of the service barier token.
 The prerequisite for this configuration is local access to the cluster, either via a VM in the cluster's network or via VPN.

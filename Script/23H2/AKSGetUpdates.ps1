@@ -89,40 +89,66 @@ $resource_group = Get-Option-Az $(az group list --output json) "name"
 Write-Host "Select the AKS Cluster" -ForegroundColor Green
 $AKSCluster = Get-Option-Az $(az resource list -g $resource_group --resource-type "Microsoft.Kubernetes/connectedClusters" --output json) "name"
 Write-Host "Do you want to get Updates for: $AKSCluster ?" -ForegroundColor Green
-Write-Host "1. Yes                                                            " 
-Write-Host "2. No                                                             " 
+Write-Host "1. Yes" 
+Write-Host "2. No" 
 $giveMeNumber = {
+  try {
+    [int]$option = Read-Host
+    return $option
+  }
+  catch {
+    Write-Output "Your input is not a valid number."
+    return $null
+  }
+}
+$option = & $giveMeNumber
+while ($null -eq $option -or $option -lt 1 -or $option -gt 2) {
+  Write-Host "Invalid option. Please choose a valid option (1 or 2)." 
+  Start-Sleep 3
+  $option = & $giveMeNumber
+}
+switch ($option) {
+  1 {
+    #Select the AKS Version to Upgrade
+    Write-Host "Select the AKS Version to Upgrade"
+    $aksversion = Get-Option-Az $(az aksarc get-upgrades --name $AKSCluster --resource-group $resource_group --query "controlPlaneProfile.upgrades[]" --output json) "kubernetesVersion"
+    Write-Host "Do you want to Update the cluster $AKSCluster to version $aksversion ?" -ForegroundColor Green
+    Write-Host "1. Yes" 
+    Write-Host "2. No" 
+    $giveMeNumber2 = {
       try {
-        [int]$option = Read-Host
-        return $option
+        [int]$option2 = Read-Host
+        return $option2
       }
       catch {
         Write-Output "Your input is not a valid number."
         return $null
       }
     }
-    $option = & $giveMeNumber
-    while ($null -eq $option -or $option -lt 1 -or $option -gt 2) {
-        Write-Host "Invalid option. Please choose a valid option (1 or 2).                         " 
-        Start-Sleep 3
-        $option = & $giveMeNumber
+    $option2 = & $giveMeNumber2
+    while ($null -eq $option2 -or $option2 -lt 1 -or $option2 -gt 2) {
+      Write-Host "Invalid option. Please choose a valid option (1 or 2)." 
+      Start-Sleep 3
+      $option2 = & $giveMeNumber2
     }
-     switch ($option) {
+    # Now you can use the selected version in your upgrade command
+    switch ($option2) {
       1 {
-        #Select the AKS Version to Upgrade
-        Write-Host "Select the AKS Version to Upgrade"
-        $aksversion = Get-Option-Az $(az aksarc get-upgrades --name $AKSCluster --resource-group $resource_group --query "controlPlaneProfile.upgrades[]" --output json) "kubernetesVersion"
-
-        # Now you can use the selected version in your upgrade command
-        az aksarc upgrade --name $AKSCluster --resource-group $resource_group --kubernetes-version $aksversion
-
+        az aksarc upgrade --name $AKSCluster --resource-group $resource_group --kubernetes-version $aksversion --yes
         Start-Sleep 1
       }
       2 { 
-        Write-Host "No updates were search"
+        Write-Host "No updates were applied"
         Start-Sleep 1
       }
-      }
+    }
+  }
+  2 { 
+    Write-Host "No updates were search"
+    Start-Sleep 1
+  }
+}
+
 #endregion
 
  
