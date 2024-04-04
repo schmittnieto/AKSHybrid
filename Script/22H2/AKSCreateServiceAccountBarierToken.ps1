@@ -22,26 +22,27 @@ function Get-Option ($cmd, $filterproperty) {
       
     return $selection
   }
-  #endregion
-  #region Snippet 2: Create Service Barier Token
-  $AKSCluster = Get-Option "Get-AksHciCluster" "Name"
-  $AdminUser = Read-Host -Prompt 'Input the user name'
-  $YamlSecret = "$AdminUser-user-secret.yaml"
-  Get-AksHciCredential -Name $AKSCluster
-  kubectl create serviceaccount $AdminUser -n default 
-  kubectl create clusterrolebinding "$Adminuser-binding" --clusterrole cluster-admin --serviceaccount default:$AdminUser
-  New-Item $YamlSecret
-  "apiVersion: v1
-  kind: Secret
-  metadata:
-    name: $AdminUser-secret
-    annotations:
-      kubernetes.io/service-account.name: $AdminUser
-  type: kubernetes.io/service-account-token" | Out-File $YamlSecret
-  kubectl apply -f $YamlSecret
-  $TOKEN = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((kubectl get secret "$AdminUser-secret" -o jsonpath='{$.data.token}'))))
-  $TOKEN
-  $TOKEN | Out-File $AdminUser-Secret-Token.txt
-  #endregion
+#endregion
+#region Snippet 2: Create Service Barier Token
+$AKSCluster = Get-Option "Get-AksHciCluster" "Name"
+$AdminUser = Read-Host -Prompt 'Input the user name'
+$YamlSecret = "$AdminUser-user-secret.yaml"
+Get-AksHciCredential -Name $AKSCluster
+Set-Location $env:USERPROFILE"\.kube"
+kubectl create serviceaccount $AdminUser -n default 
+kubectl create clusterrolebinding "$Adminuser-binding" --clusterrole cluster-admin --serviceaccount default:$AdminUser
+New-Item $YamlSecret
+"apiVersion: v1
+kind: Secret
+metadata:
+  name: $AdminUser-secret
+  annotations:
+    kubernetes.io/service-account.name: $AdminUser
+type: kubernetes.io/service-account-token" | Out-File $YamlSecret
+kubectl apply -f $YamlSecret
+$TOKEN = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((kubectl get secret "$AdminUser-secret" -o jsonpath='{$.data.token}'))))
+$TOKEN
+$TOKEN | Out-File $AdminUser-Secret-Token.txt
+#endregion
   
   

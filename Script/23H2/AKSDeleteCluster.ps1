@@ -80,6 +80,7 @@ exit
 #>
 #endregion
 #region Snippet 3: Enabling Azure Hybrid User Benefits feature on AKS
+az account clear
 az login --use-device-code
 Write-Host "Select the AKS Subscription" -ForegroundColor Green
 $AZsubscription = Get-Option-Az $(az account list --output json) "name"
