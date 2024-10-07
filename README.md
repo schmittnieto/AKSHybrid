@@ -1,4 +1,4 @@
-# AKSHybrid (Outdated)
+# AKSHybrid (Deprecared)
 This is a repository that intends to automate and document the installation and management of AKS in Azure Stack HCI 23H2.
 The scripts were developed for the first versions of 23H2 (2310 and 2311), with the current 2311.2 update several parts of the scripts have become obsolete and will be moved to 2311. 
 Leaving the part of the code that still serves in the 23H2 section.
